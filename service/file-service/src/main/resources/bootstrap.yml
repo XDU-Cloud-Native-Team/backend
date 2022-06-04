@@ -1,3 +1,71 @@
+spring:
+  # 数据库配置
+  datasource:
+    username: root
+    password: 123456
+    # myjfs文件系统，对应元数据的数据库为juicefs
+    url: jdbc:mysql://114.132.67.88:3307/juicefs?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=GMT
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    hikari:
+      minimum-idle: 3
+      maximum-pool-size: 10
+      max-lifetime: 30000
+      connection-test-query: SELECT 1
+
+  mvc:
+    dispatch-options-request: true
+
+  # 邮件模块配置
+  mail:
+    # 配置 SMTP 服务器地址
+    host: smtp.qq.com
+    # SMTP 服务器的端口
+    port: 465
+    # 配置邮箱用户名
+    username: funduncan@qq.com
+    # 配置密钥
+    password: gnnousfyrinobbdb
+    # 字符编码
+    default-encoding: UTF-8
+    # 协议
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          # SSL加密工厂
+          socketFactoryClass: javax.net.ssl.SSLSocketFactory
+          ssl:
+            enable: true
+          socketFactory:
+            port: 465
+        # 表示开启 DEBUG 模式，这样，邮件发送过程的日志会在控制台打印出来，方便排查错误
+        debug: true
+
+  servlet:
+    multipart:
+      # 启用http上传文件
+      enabled: true
+      # 单个文件最大大小
+      max-file-size: 1024MB
+      # 多个文件最大大小
+      max-request-size: 5120MB
+      # 刷盘阈值
+      file-size-threshold: 512KB
+      # 上传文件的临时目录
+      location: /mnt/myjfs/tmp/
+
+#mybatis
+mybatis:
+  type-aliases-package: xdu.cloudnative.service.file.mapper
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+# spring boot端口
 server:
   port: 8080
 
+logging:
+  level:
+    xdu.cloudnative.service.file : debug
