@@ -1,0 +1,4 @@
+xdu\cloudnative\service\authority\entity\User.class
+xdu\cloudnative\service\authority\entity\Group.class
+xdu\cloudnative\service\authority\controller\LoginController.class
+xdu\cloudnative\service\authority\AuthorityApplication.class
