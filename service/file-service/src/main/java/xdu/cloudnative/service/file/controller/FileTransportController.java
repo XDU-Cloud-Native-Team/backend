@@ -20,7 +20,7 @@ import java.net.URLEncoder;
 public class FileTransportController {
 
     //@Value("${fileDirectory}:/mnt/myjfs/")
-    private String localStoreDirectory = "/mnt/myjfs/";
+    private String localStoreDirectory = "/Users/zhangxiaorui/Desktop/";
 
     //@Value("${bufferSize}:1024")
     private int bufferSize = 1024;
@@ -54,11 +54,11 @@ public class FileTransportController {
         }
 
         // 删除临时文件
-        File f = new File(new File(filePath).toURI());
-        if (!f.delete()) {
-            json.put("result", "failed");
-            json.put("errMsg", "delete temporary file failed");
-        }
+//        File f = new File(new File(filePath).toURI());
+//        if (!f.delete()) {
+//            json.put("result", "failed");
+//            json.put("errMsg", "delete temporary file failed");
+//        }
 
         return json;
     }
@@ -84,7 +84,7 @@ public class FileTransportController {
                 // 重置response
                 response.reset();
                 // ContentType，即告诉客户端所发送的数据属于什么类型
-                response.setContentType("application/octet-stream; charset=UTF-8");
+                response.setContentType("image/jpeg; charset=UTF-8");
                 // 获得文件的长度
                 response.setHeader("Content-Length", String.valueOf(file.length()));
                 // 设置编码格式

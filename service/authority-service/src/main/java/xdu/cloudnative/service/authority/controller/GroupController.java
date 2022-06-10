@@ -55,7 +55,8 @@ public class GroupController {
     public JSONObject generateInviteCode(@RequestParam(value = "user_id") String userId) {
         JSONObject json = new JSONObject();
 
-        if ()
+        //if ()
+        return null;
     }
 
 }
