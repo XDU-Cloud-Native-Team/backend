@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Group {
+public class CoGroup {
 
-    Integer groupId;
+    Integer id;
 
-    String groupName;
+    String name;
 
     String inviteCode;
 

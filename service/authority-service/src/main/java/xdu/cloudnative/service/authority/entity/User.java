@@ -1,5 +1,8 @@
 package xdu.cloudnative.service.authority.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,8 +14,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-
-    Integer userId;
+    @TableId(type = IdType.AUTO)
+    Integer id;
 
     String username;
 
@@ -22,4 +25,9 @@ public class User {
 
     Integer groupId;
 
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 }
