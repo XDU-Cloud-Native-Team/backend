@@ -1,14 +1,11 @@
 package xdu.cloudnative.service.file.utilities;
 
-import org.springframework.stereotype.Component;
-
 import java.io.*;
 import java.util.concurrent.*;
 
 /**
  * @author 邓乐丰@xduTD
  */
-@Component
 public class IOUtilities {
 
     /**处理上传文件请求的本地磁盘IO线程池
@@ -19,6 +16,13 @@ public class IOUtilities {
     private static ExecutorService downloadThreadPool;
     /** 可用CPU数量，与线程池参数设置相关 */
     private static int processorsNumber;
+
+    /** 用于配置的静态代码块 */
+    static {
+        processorsNumber = Runtime.getRuntime().availableProcessors();
+        uploadThreadPool = new ThreadPoolExecutor(1, 2 * processorsNumber, 60L, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
+        downloadThreadPool = new ThreadPoolExecutor(1, 2 * processorsNumber, 60L, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
+    }
 
     /**
      * 通过线程池加速本地存储文件的速度
@@ -65,17 +69,9 @@ public class IOUtilities {
 
     }
 
-
     public static void loadFile(String path) {
 
     }
 
-
-    /** 用于配置的静态代码块 */
-    static {
-        processorsNumber = Runtime.getRuntime().availableProcessors();
-        uploadThreadPool = new ThreadPoolExecutor(1, 2 * processorsNumber, 60L, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
-        downloadThreadPool = new ThreadPoolExecutor(1, 2 * processorsNumber, 60L, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
-    }
 
 }

@@ -3,13 +3,18 @@ package xdu.cloudnative.service.authority.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import xdu.cloudnative.service.authority.entity.User;
-import xdu.cloudnative.service.authority.mapper.UserMapper;
-import xdu.cloudnative.service.authority.service.UserService;
+import org.springframework.web.bind.annotation.*;
 
+import xdu.cloudnative.model.authority.entity.User;
+import xdu.cloudnative.model.authority.mapper.UserMapper;
+import xdu.cloudnative.model.authority.service.UserService;
+
+import xdu.cloudnative.service.authority.vo.RegisterInfo;
+
+/**
+ * @author 张晓瑞
+ */
+@CrossOrigin
 @RestController
 public class RegisterController {
     @Autowired
@@ -18,22 +23,25 @@ public class RegisterController {
     UserMapper userMapper;
 
     @PostMapping("/register")
-    public JSONObject register(@RequestParam(value = "username") String username,
-                               @RequestParam(value = "password") String password,
-                               @RequestParam(value = "email") String email,
-                               @RequestParam(value = "phone") String phone){
-        // fix : chang param into object
+    public JSONObject register(@RequestBody RegisterInfo registerInfo){
+
         JSONObject json = new JSONObject();
 
+        // 前置验证
+        if (registerInfo == null) {
+            json.put("result", "failed");
+            json.put("errMsg", "参数错误");
+        }
+
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("username", username);
+        wrapper.eq("username", registerInfo.getUsername());
         User user = userMapper.selectOne(wrapper);
         if(user != null){
             json.put("result","failed");
             json.put("errMsg","该名称用户已存在");
             return json;
         }
-        userService.save(new User(username,password,email));
+        userService.save(new User(registerInfo.getUsername(), registerInfo.getPassword(), registerInfo.getEmail()));
         json.put("result","success");
         return json;
     }
