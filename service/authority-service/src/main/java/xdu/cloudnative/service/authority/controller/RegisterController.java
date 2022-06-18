@@ -3,6 +3,7 @@ package xdu.cloudnative.service.authority.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import xdu.cloudnative.model.authority.entity.User;
@@ -23,15 +24,10 @@ public class RegisterController {
     UserMapper userMapper;
 
     @PostMapping("/register")
-    public JSONObject register(@RequestBody RegisterInfo registerInfo){
+    public JSONObject register(@Validated @RequestBody RegisterInfo registerInfo){
 
         JSONObject json = new JSONObject();
 
-        // 前置验证
-        if (registerInfo == null) {
-            json.put("result", "failed");
-            json.put("errMsg", "参数错误");
-        }
 
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("username", registerInfo.getUsername());
@@ -42,6 +38,7 @@ public class RegisterController {
             return json;
         }
         userService.save(new User(registerInfo.getUsername(), registerInfo.getPassword(), registerInfo.getEmail()));
+
         json.put("result","success");
         return json;
     }

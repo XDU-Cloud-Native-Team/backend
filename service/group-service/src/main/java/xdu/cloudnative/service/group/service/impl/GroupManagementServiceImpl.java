@@ -1,7 +1,14 @@
 package xdu.cloudnative.service.group.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xdu.cloudnative.exception.*;
+import xdu.cloudnative.model.authority.entity.User;
+import xdu.cloudnative.model.authority.mapper.UserMapper;
+import xdu.cloudnative.model.authority.service.UserService;
+import xdu.cloudnative.model.group.entity.CoGroup;
+import xdu.cloudnative.model.group.mapper.CoGroupMapper;
+import xdu.cloudnative.model.group.service.CoGroupService;
 import xdu.cloudnative.service.group.service.GroupManagementService;
 
 /**
@@ -10,8 +17,18 @@ import xdu.cloudnative.service.group.service.GroupManagementService;
 @Service
 public class GroupManagementServiceImpl implements GroupManagementService {
 
+    @Autowired
+    UserMapper userMapper;
+    @Autowired
+    CoGroupMapper coGroupMapper;
+    @Autowired
+    UserService userService;
+    @Autowired
+    CoGroupService coGroupService;
+
     @Override
     public String joinGroup(String userId, String inviteCode) throws UserNotExistsException, InviteCodeErrorException, UserInvalidStateException {
+        User user = userMapper.selectById(Integer.parseInt(userId));
         return null;
     }
 

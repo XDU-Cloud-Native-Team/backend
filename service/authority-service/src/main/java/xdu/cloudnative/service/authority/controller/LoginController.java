@@ -9,6 +9,7 @@ import xdu.cloudnative.model.authority.entity.User;
 import xdu.cloudnative.model.authority.mapper.UserMapper;
 import xdu.cloudnative.model.authority.service.UserService;
 
+import xdu.cloudnative.service.authority.service.LoginService;
 import xdu.cloudnative.service.authority.vo.LoginInfo;
 
 /**
@@ -16,16 +17,19 @@ import xdu.cloudnative.service.authority.vo.LoginInfo;
  */
 @CrossOrigin
 @RestController
-@RequestMapping
 public class LoginController {
 
     @Autowired
     UserService userService;
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    LoginService loginService;
 
     @PostMapping(value = "/login")
     public JSONObject login(@RequestBody LoginInfo loginInfo) {
+
+        // return loginService.login(loginInfo);
 
         JSONObject json = new JSONObject();
 

@@ -28,7 +28,7 @@ public class IOUtilities {
      * 通过线程池加速本地存储文件的速度
      *
      * @param data 用户上传的文件的数据
-     * @param path 文件在服务器上的保存路径
+     * @param path 文件在服务器上的保存路径（JuiceFS的挂载路径 + 用户自定义文件夹路径）
      */
     public static void storeFile(byte[] data, String path) {
         // 对每个请求创建一个任务，然后交给线程池调度。

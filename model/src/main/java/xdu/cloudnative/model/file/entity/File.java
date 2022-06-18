@@ -1,9 +1,12 @@
 package xdu.cloudnative.model.file.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 
 /**
@@ -12,21 +15,30 @@ import java.sql.Timestamp;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@TableName(value = "file")
 public class File {
 
     /** PRIMARY KEY */
+    @TableField(value = "hashtag")
     String hashtag;
 
+    @TableField(value = "filename")
+    @NotBlank(message = "file name cannot be empty")
     String filename;
 
+    @TableField(value = "user_id")
     Integer user_id;
 
+    @TableField(value = "group_id")
     Integer group_id;
 
+    @TableField(value = "size")
     Integer size;
 
+    @TableField(value = "create_time")
     Timestamp create_time;
 
+    @TableField(value = "visibility")
     Integer visibility;
 
     public void setCreateTime(Timestamp createTime) {
